@@ -1,8 +1,12 @@
 from django.db import models
-
+import os, shutil
 # Create your models here.
-def user_image_path(instante, filename):
-    return 'upload/player_{0}/{1}'.format(instante.nome, filename)
+def user_image_path(instance, filename):
+    folder_path = f'upload/player_{instance.nome}'
+    if os.path.exists(folder_path):
+        shutil.rmtree(path=folder_path)
+    return f'{folder_path}/{filename}'
+
 class Jogador(models.Model):
     opcao_status = [
         ('A', 'Ativo'),
