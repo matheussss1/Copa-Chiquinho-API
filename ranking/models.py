@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+def user_image_path(instante, filename):
+    return 'upload/player_{0}/{1}'.format(instante.nome, filename)
 class Jogador(models.Model):
     opcao_status = [
         ('A', 'Ativo'),
@@ -14,6 +16,7 @@ class Jogador(models.Model):
     ]
 
     nome = models.CharField(max_length=50, blank=False)
+    imagem = models.FileField(upload_to=user_image_path)
     especialidade = models.CharField(max_length=1, choices=opcao_especialidade)
     idade = models.IntegerField()
     sobre = models.TextField()
